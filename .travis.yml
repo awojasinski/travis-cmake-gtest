@@ -1,0 +1,35 @@
+language:
+    - cpp
+    - c
+
+os: linux
+dist: bionic
+sudo: required
+
+compiler:
+    - gcc
+    - g++
+
+addons:
+    apt:
+        packages:
+        - python-yaml
+        - lcov
+        sources:
+        - ubuntu-toolchain-r-test
+
+before_script:
+    - sudo pip install codecov
+    # create a build folder for the out-of-source build
+    - mkdir build
+    # switch to build directory
+    - cd build
+
+script:
+    # Run your build commands
+    - cmake -D ENABLE_COVERAGE:BOOL=TRUE ../ -G "Unix Makefile"
+    - make -j4 -s
+    - ctest --progress
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash) -x 
