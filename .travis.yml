@@ -27,7 +27,7 @@ before_script:
 
 script:
     # Run your build commands
-    - cmake .. -G "Unix Makefile"
+    - cmake .. -G "Unix Makefiles"
     - make -j4 -s
     - ctest -T test -T coverage
 
