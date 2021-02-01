@@ -27,9 +27,9 @@ before_script:
 
 script:
     # Run your build commands
-    - cmake -D ENABLE_COVERAGE:BOOL=TRUE ../ -G "Unix Makefile"
+    - cmake .. -G "Unix Makefile"
     - make -j4 -s
-    - ctest --progress
+    - ctest -T test -T coverage
 
 after_success:
     - bash <(curl -s https://codecov.io/bash) -x 
